@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+			crossorigin="anonymous"/>
+	</head>
+	<body>
+		<div class="container bg-primary text-white pt-5 pb-5 border border-dark border-2 shadow">
+			<h1>Band Directory</h1>
+		</div>
+		<div class="container">
+			{% with messages = get_flashed_messages() %}
+				{% if messages %}
+						<h2 class="text-center">Error:</h2>
+						<ul class=" pt-1 pb-1 shadow border border-2 border-dark bg-danger d-flex text-start justify-content-center flex-wrap">
+						{% for message in messages %}
+							<li class="text-white mx-3">{{message}}</li>
+						{% endfor %}
+						</ul>
+					</div>
+					<hr>
+				{% else %}
+					<div class="container p-5"></div>
+				{% endif %}
+			{% endwith %}
+		</div>
+		<div class="container d-flex">
+			<div class="container col-3">
+				<h1>Register</h1>
+				<form action="/register" method="POST">
+					<label for="first_name">First Name</label>
+					<br>
+					<input type="text" name="first_name">
+					<br>
+					<label for="last_name">Last Name</label>
+					<br>
+					<input type="text" name="last_name">
+					<br>
+					<label for="email">Email</label>
+					<br>
+					<input type="text" name="email">
+					<br>
+					<label for="password">Password</label>
+					<br>
+					<input type="password" name="password">
+					<br>
+					<label for="pass_confirm">confirm password</label>
+					<br>
+					<input type="password" name="pass_confirm">
+					<br>
+					<input type="submit" value="Register">
+				</form>
+			</div>
+			<div class="container col-3" >
+				<h1>Login</h1>
+				<form action="/login" method="POST">
+					<label for="email">Email</label>
+					<br>
+					<input type="text" name="email">
+					<br>
+					<label for="password">Password</label>
+					<br>
+					<input type="password" name="password">
+					<br>
+					<input type="submit" value="login">
+				</form>
+			</div>
+		</div>
+
+	</body>
+</html>

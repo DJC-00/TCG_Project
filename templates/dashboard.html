@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+			crossorigin="anonymous"/>
+	</head>
+	<body>
+		<div class="p-3 text-center bg-primary d-flex gap-3 justify-content-between">
+			<div class="d-flex gap-4">
+				<h3 class="text-white">The Band List</h3>
+				<h3 class="text-warning">Rock on {{current_user.first_name}}</h3>
+			</div>
+			<div>
+				<a class="btn btn-light text-center shadow me-3" href="/user/bands_info" role="button">My Bands</a>
+				<a class="btn btn-secondary text-center shadow me-3" href="/logout" role="button">Logout</a>
+			</div>
+		</div>
+		<div class="container">
+			{% with messages = get_flashed_messages() %}
+				{% if messages %}
+						<h2 class="text-center">Error:</h2>
+						<ul class=" pt-1 pb-1 shadow border border-2 border-dark bg-danger d-flex text-start justify-content-center flex-wrap">
+						{% for message in messages %}
+							<li class="text-white mx-3">{{message}}</li>
+						{% endfor %}
+						</ul>
+					</div>
+					<hr>
+				{% else %}
+					<div class="container p-2"></div>
+				{% endif %}
+			{% endwith %}
+		</div>
+		<div class="container">
+			<h1 class="text-center pt-2 pb-2">Band List</h1>
+		</div>
+		<div class="container">
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">Name</th>
+						<th scope="col">Founder</th>
+						<th scope="col">Genre</th>
+						<th scope="col">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for band in all_bands_with_users %}
+					<tr>
+						<th>{{band.name}}</th>
+						<td>{{band.user_fname}}</td>
+						<td>{{band.genre}}</td>
+						
+						<td>
+							<div>
+							{% if band.user_id == current_user.id %}
+								<a class="btn btn-primary" href="/band/edit/{{band.id}}" role="button">Edit</a>
+								<a class="btn btn-danger" href="/band/delete/confirm/{{band.id}}" role="button">Delete</a>
+							{% elif band.id in user_bands_joined %}
+								<a class="btn btn-dark" href="user/band/join/{{current_user.id}}/{{band.id}}" role="button">Quit</a>
+							{% else %}
+								<a class="btn btn-dark" href="user/band/join/{{current_user.id}}/{{band.id}}" role="button">Join</a>
+							{% endif %}
+							</div>
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<div class="container d-flex justify-content-center pt-2">
+				<a class="btn btn-warning text-center shadow me-3" href="/band/create" role="button">Add New Band</a>
+			</div>
+		</div>
+	</body>
+</html>
