@@ -20,6 +20,9 @@ Safesearch API
 MySQL
 - Utilized in storing user and card data
 
+Bootstrap
+- Used in conjunction with custom styling to create a trading card frame to display the generated card
+
 
 ## To-Do
 - Implement Async jobs to prevent loading screen lockdown
